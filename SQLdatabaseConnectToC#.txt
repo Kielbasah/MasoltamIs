@@ -8,3 +8,17 @@ while (olvaso.Read()) {
     Console.WriteLine($"A földszinti ingatlanok átlagos alapterülete: {olvaso.GetDouble(0):0.00} m2");
 }
 kapcsolat.Close();
+
+
+
+
+MySqlConnection conn = new MySqlConnection("server=localhost;database=cukraszda;uid=root;password=;");
+MySqlCommand cmd = conn.CreateCommand();
+cmd.CommandText = "select Count(*) as 'Hiányzó kalória érték' from termek where termek.kaloria IS NULL";
+conn.Open();
+MySqlDataReader dr = cmd.ExecuteReader();
+int kaloriaDB = 0;
+while (dr.Read())
+{
+    kaloriaDB = (Convert.ToInt32(dr["Hiányzó kalória érték"]));
+}
